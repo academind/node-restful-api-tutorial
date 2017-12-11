@@ -15,6 +15,7 @@
   "author": "Maximilian Schwarzmüller",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "mongoose": "^4.13.5",
