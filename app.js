@@ -8,12 +8,19 @@ const productRoutes = require("./api/routes/products");
 const orderRoutes = require("./api/routes/orders");
 const userRoutes = require('./api/routes/user');
 
-mongoose.connect(
-  "mongodb://node-shop:" +
-    process.env.MONGO_ATLAS_PW +
-    "@node-rest-shop-shard-00-00-wovcj.mongodb.net:27017,node-rest-shop-shard-00-01-wovcj.mongodb.net:27017,node-rest-shop-shard-00-02-wovcj.mongodb.net:27017/test?ssl=true&replicaSet=node-rest-shop-shard-0&authSource=admin",
-  {
-    useMongoClient: true
+
+mongoose.connect(uri, options).then(
+  () => {
+    "mongodb://node.shop:" +
+      process.env.MONGO_ATLAS_PW +
+      "@node-rest-shop-shard-00-00-wovcj.mongodb.net:27017,node-rest-shop-shard-00-01-wovcj.mongodb.net:27017,node-rest-shop-shard-00-02-wovcj.mongodb.net:27017/test?ssl=true&replicaSet=node-rest-shop-shard-0&authSource=admin",
+        {
+        useMongoClient: true
+      }  
+  },
+   .catch((err) => {
+    console.log('Error on start: ' + err.stack);
+    process.exit(1);
   }
 );
 mongoose.Promise = global.Promise;
