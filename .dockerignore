@@ -1,0 +1,2 @@
+# Ignore host and derived directories and any secrets
+.git
