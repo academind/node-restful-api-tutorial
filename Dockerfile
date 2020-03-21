@@ -8,7 +8,7 @@ RUN mkdir /app
 ADD . /app
 
 # TODO: see if lower privs works
-#USER nobody
+RUN useradd -ms /bin/bash svc
 
 # Run the container out of the install directory
 WORKDIR /app
@@ -17,4 +17,5 @@ WORKDIR /app
 RUN npm install
 
 # Start the server
+USER svc
 CMD node server.js
