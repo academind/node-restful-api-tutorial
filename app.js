@@ -8,14 +8,16 @@ const productRoutes = require("./api/routes/products");
 const orderRoutes = require("./api/routes/orders");
 const userRoutes = require('./api/routes/user');
 
-mongoose.connect(
-  "mongodb://node-shop:" +
-    process.env.MONGO_ATLAS_PW +
-    "@node-rest-shop-shard-00-00-wovcj.mongodb.net:27017,node-rest-shop-shard-00-01-wovcj.mongodb.net:27017,node-rest-shop-shard-00-02-wovcj.mongodb.net:27017/test?ssl=true&replicaSet=node-rest-shop-shard-0&authSource=admin",
-  {
-    useMongoClient: true
-  }
-);
+const MONGO_DB_URI = 'mongodb+srv://nodeshopnew:nodeshopnew@node-rest-shop.igjdw.mongodb.net/testnew?retryWrites=true&w=majority';
+
+mongoose.connect(MONGO_DB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
+mongoose.connection.on('connected', () => {
+    console.log('Mongoose is connected!')
+
+});
 mongoose.Promise = global.Promise;
 
 app.use(morgan("dev"));
