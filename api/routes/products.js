@@ -3,13 +3,14 @@ const router = express.Router();
 const multer = require('multer');
 const checkAuth = require('../middleware/check-auth');
 const ProductsController = require('../controllers/products');
+const GridFsStorage = require('multer-gridfs-storage');
 
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
     cb(null, './uploads/');
   },
   filename: function(req, file, cb) {
-    cb(null, new Date().toISOString() + file.originalname);
+    cb(null, Math.floor(Math.random() * Math.floor(10000)) + file.originalname);
   }
 });
 
@@ -29,6 +30,27 @@ const upload = multer({
   },
   fileFilter: fileFilter
 });
+
+// const MONGO_DB_URI = 'mongodb+srv://nodeshopnew:nodeshopnew@node-rest-shop.igjdw.mongodb.net/testnew?retryWrites=true&w=majority';
+
+// var storage = new GridFsStorage({
+//   url:MONGO_DB_URI,
+//   options: { useNewUrlParser: true, useUnifiedTopology: true },
+//   file: (req, file) => {
+//     const match = ["image/png", "image/jpeg"];
+
+//     if (match.indexOf(file.mimetype) === -1) {
+//       const filename = `${Date.now()}-bezkoder-${file.originalname}`;
+//       return filename;
+//     }
+
+//     return {
+//       bucketName: "photos",
+//       filename: `${Date.now()}-bezkoder-${file.originalname}`
+//     };
+//   }
+// });
+
 
 router.get("/", ProductsController.products_get_all);
 

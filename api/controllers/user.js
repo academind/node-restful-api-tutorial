@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
+const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const User = require("../models/user");
@@ -13,7 +13,7 @@ exports.user_signup = (req, res, next) => {
           message: "Mail exists"
         });
       } else {
-        bcrypt.hash(req.body.password, 10, (err, hash) => {
+        bcryptjs.hash(req.body.password, 10, (err, hash) => {
           if (err) {
             return res.status(500).json({
               error: err
@@ -53,7 +53,7 @@ exports.user_login = (req, res, next) => {
           message: "Auth failed"
         });
       }
-      bcrypt.compare(req.body.password, user[0].password, (err, result) => {
+      bcryptjs.compare(req.body.password, user[0].password, (err, result) => {
         if (err) {
           return res.status(401).json({
             message: "Auth failed"
