@@ -47,7 +47,7 @@ router.post("/signup", (req, res, next) => {
 });
 
 router.post("/login", (req, res, next) => {
-  User.find({ email: req.body.email })
+  User.findOne({ email: req.body.email })
     .exec()
     .then(user => {
       if (user.length < 1) {
@@ -55,7 +55,7 @@ router.post("/login", (req, res, next) => {
           message: "Auth failed"
         });
       }
-      bcrypt.compare(req.body.password, user[0].password, (err, result) => {
+      bcrypt.compare(req.body.password, user.password, (err, result) => {
         if (err) {
           return res.status(401).json({
             message: "Auth failed"
@@ -64,8 +64,8 @@ router.post("/login", (req, res, next) => {
         if (result) {
           const token = jwt.sign(
             {
-              email: user[0].email,
-              userId: user[0]._id
+              email: user.email,
+              userId: user._id
             },
             process.env.JWT_KEY,
             {
