@@ -1,0 +1,18 @@
+
+
+@host = http://localhost:3000
+
+###
+
+POST {{host}}/posts/createNew http/1.1
+Content-Type: application/json
+
+
+{
+    "title":"1234556",
+    "body":"bodyy"
+}
+
+###
+POST {{host}}/posts/ http/1.1
+
